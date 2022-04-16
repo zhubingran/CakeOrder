@@ -8,6 +8,7 @@
 		</view>
 		<view class="action text-grey">
 			<text class="cuIcon-search"></text>
+			<!-- 分割线 -->
 			<u-line direction="col" length="35" margin="20rpx"></u-line>
 			<text class="cuIcon-sort"></text>
 		</view>
