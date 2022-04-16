@@ -1,5 +1,5 @@
 <template>
-	<view class="cu-bar bg-white">
+	<view class="cu-bar bg-white nav-fixed">
 		<view class="action">
 			<text class="cuIcon-locationfill text-gray"></text> 位置
 		</view>
@@ -26,6 +26,12 @@
 	}
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+.nav-fixed{
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+}
 </style>
