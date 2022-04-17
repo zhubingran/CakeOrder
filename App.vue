@@ -2,6 +2,14 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			try {
+				const value = uni.getStorageSync('userInfo');
+				if (value) {
+					this.$store.commit('user/initInfo',value)
+				}
+			} catch (e) { 
+				// error
+			}
 		},
 		onShow: function() {
 			console.log('App Show')

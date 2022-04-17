@@ -1,7 +1,7 @@
 <template>
-	<view class="cake-item">
+	<view class="cake-item" @click="handleDetail">
 		<!-- 图片区域 -->
-		<image  class="poster" :src="gdata.img"></image>
+		<image  class="poster" :src="gdata.img" ></image>
 		<!-- 数据区域 -->
 		<view class="info-cont">
 			<view class="info flex justify-between align-center">
@@ -9,6 +9,7 @@
 					<view class="fs-22">{{gdata.name}}</view>
 					<view class="fs-16">{{gdata.french}}</view>
 				</view>
+				<!-- 加入购物车 -->
 				<view class="cart-btn margin-right-sm">
 					<text class="iconfont icon-gouwuche"></text>
 				</view>
@@ -27,7 +28,20 @@ export default {
 	data() {
 		return {}
 	},
-	props:['gdata']
+	props:['gdata'],
+	methods:{
+		handleDetail(){
+			uni.setStorage({
+				key:'detail',
+				data:this.gdata,
+				success:()=>{
+					uni.navigateTo({
+						url:'/pages/detail/detail'
+					})
+				}
+			})
+		}
+	}
 }
 </script>
 

@@ -21,11 +21,21 @@
 					<view v-if="index == 0">
 						<view @click="listShow=!listShow" class="padding-tb-sm margin-top u-border-top">口味筛选</view>
 						<u-cell-group v-if="listShow">
-							<u-cell v-for="(itm,idx) in item.list" :key="idx" icon="setting-fill" :title="itm.tname" isLink></u-cell>
+							<u-cell v-for="(itm,idx) in item.list" 
+							:key="idx" icon="setting-fill" 
+							:title="itm.tname" 
+							isLink
+							@click="handleList(itm)"
+							></u-cell>
 						</u-cell-group>
 						<view @click="sceneShow=!sceneShow" class="padding-tb-sm">场景筛选</view>
 						<u-cell-group v-if="sceneShow">
-							<u-cell v-for="(itm,idx) in item.scene" :key="idx" icon="setting-fill" :title="itm.tname" isLink></u-cell>
+							<u-cell v-for="(itm,idx) in item.scene" 
+							:key="idx" icon="setting-fill" 
+							:title="itm.tname" 
+							isLink
+							@click="handleScene(itm)"
+							></u-cell>
 						</u-cell-group>
 					</view>
 				</view>
@@ -78,16 +88,20 @@ export default {
 				})
 			})
 		},
+		// 重新加载数据
+		reloadData(){
+			this.glist = []
+			this.page = 0
+			this.loadData()
+		},
 		// 底部菜单点击事件
 		handleTab(item) {
 			let { bcid, target } = item
 			if (bcid) {
-				this.glist = []
-				this.page = 0
 				this.$store.commit('changeCondition',{
 					bcid:Number(bcid)
 				})
-				this.loadData()
+				this.reloadData()
 			}
 			if (!bcid && !target) {
 				this.show = true
@@ -96,6 +110,22 @@ export default {
 		// 左侧弹出层关闭事件
 		handleClose() {
 			this.show = false
+		},
+		// 筛选口味
+		handleList(listObj){
+			this.$store.commit('changeCondition',{
+				bcid:listObj.bid,
+				fid:listObj.tid
+			})
+			this.reloadData()
+		},
+		// 筛选场景
+		handleScene(sceneObj){
+			this.$store.commit('changeCondition',{
+				bcid:sceneObj.bid,
+				sid:sceneObj.tid
+			})
+			this.reloadData()
 		}
 	},
 	computed:{
